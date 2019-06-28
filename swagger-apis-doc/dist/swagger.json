@@ -1,0 +1,715 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Heimdall API",
+        "description": "A minimal and easy to follow insturction for CRUD of different intities"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000/api/v1",
+            "description": "Amazon ec2"
+        },
+        {
+            "url": "http://ec2-3-87-8-172.compute-1.amazonaws.com:3000/api/v1",
+            "description": "Amazon ec2"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Vehicles",
+            "description": "API for vehicles"
+        },
+        {
+            "name": "Services",
+            "description": "API for services"
+        },
+        {
+            "name": "Authentication",
+            "description": "API for user authentication, like registration, phone verification, login"
+        }
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/vehicle/search": {
+            "get": {
+                "tags": [
+                    "Vehicles"
+                ],
+                "summary": "Search from vehicles for year, model and make w.r.t specified query-params like query, offset and limit. The range for limit is 1-200",
+                "parameters": [
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "required": true,
+                        "description": "Space separated string for year, model and make e.g `2016 ILX Acura`",
+                        "schema": {
+                            "$ref": "#/definitions/StringParam"
+                        }
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "To return data from - Default = 0",
+                        "schema": {
+                            "$ref": "#/definitions/IntegerParam"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Number of records to return - Default = 50",
+                        "schema": {
+                            "$ref": "#/definitions/IntegerParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Vehicles"
+                        }
+                    }
+                }
+            }
+        },
+        "/vehicle/list": {
+            "get": {
+                "tags": [
+                    "Vehicles"
+                ],
+                "summary": "Get list of all vehicles accroding to specified query-params like offset and limit. The range for limit is 1-200",
+                "parameters": [
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "To return data from - Default = 0",
+                        "schema": {
+                            "$ref": "#/definitions/IntegerParam"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Number of records to return - Default = 50",
+                        "schema": {
+                            "$ref": "#/definitions/IntegerParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Vehicles"
+                        }
+                    }
+                }
+            }
+        },
+        "/vehicle/create": {
+            "post": {
+                "tags": [
+                    "Vehicles"
+                ],
+                "summary": "Create a new vehicle",
+                "requestBody": {
+                    "description": "Vehicle Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Vehicle"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Vehicle"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/vehicle/find/{id}": {
+            "get": {
+                "tags": [
+                    "Vehicles"
+                ],
+                "summary": "Get vehicle with given ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the vehicle",
+                        "schema": {
+                            "$ref": "#/definitions/IntegerParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Vehicle"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. Vehicle not found."
+                    }
+                }
+            }
+        },
+        "/vehicle/update/{id}": {
+            "patch": {
+                "summary": "Update vehicle with given ID",
+                "tags": [
+                    "Vehicles"
+                ],
+                "requestBody": {
+                    "description": "Vehicle Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Vehicle"
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Vehicle with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/IntegerParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/generalResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    },
+                    "404": {
+                        "description": "Failed. Vehicle not found."
+                    }
+                }
+            }
+        },
+        "/vehicle/delete/{id}": {
+            "delete": {
+                "summary": "Delete vehicle with given ID",
+                "tags": [
+                    "Vehicles"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Delete Vehicle with given id",
+                        "schema": {
+                            "$ref": "#/definitions/IntegerParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/generalResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. Vehicle not found."
+                    }
+                }
+            }
+        },
+        "/service/list": {
+            "get": {
+                "tags": [
+                    "Services"
+                ],
+                "summary": "Get list of all services accroding to specified query-params like offset and limit. The range for limit is 1-200",
+                "parameters": [
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "To return data from - Default = 0",
+                        "schema": {
+                            "$ref": "#/definitions/IntegerParam"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Number of records to return - Default = 50",
+                        "schema": {
+                            "$ref": "#/definitions/IntegerParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Services"
+                        }
+                    }
+                }
+            }
+        },
+        "/service/create": {
+            "post": {
+                "tags": [
+                    "Services"
+                ],
+                "summary": "Create a new service",
+                "requestBody": {
+                    "description": "Service Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Service"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Service"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/service/find/{id}": {
+            "get": {
+                "tags": [
+                    "Services"
+                ],
+                "summary": "Get service with given ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the service",
+                        "schema": {
+                            "$ref": "#/definitions/IntegerParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Service"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. Vehicle not found."
+                    }
+                }
+            }
+        },
+        "/service/update/{id}": {
+            "patch": {
+                "summary": "Update service with given ID",
+                "tags": [
+                    "Services"
+                ],
+                "requestBody": {
+                    "description": "Service Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Service"
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Service with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/IntegerParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/generalResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    },
+                    "404": {
+                        "description": "Failed. Service not found."
+                    }
+                }
+            }
+        },
+        "/service/delete/{id}": {
+            "delete": {
+                "summary": "Delete service with given ID",
+                "tags": [
+                    "Services"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Delete Service with given id",
+                        "schema": {
+                            "$ref": "#/definitions/IntegerParam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/generalResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. Service not found."
+                    }
+                }
+            }
+        },
+        "/auth/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Register a new user",
+                "requestBody": {
+                    "description": "User to register, All values are required",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/User"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/auth/verifyPhoneNumber": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Verify phone number of a registered user",
+                "parameters": [
+                    {
+                        "name": "twilioUUID",
+                        "in": "header",
+                        "required": true,
+                        "description": "Twilio UUID returned from register API",
+                        "schema": {
+                            "$ref": "#/definitions/StringParam"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Enter the code that has been sent to your mobile along with twilio UUID returned from register API",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "twilioOTP": {
+                                        "type": "number"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Perform login for a user",
+                "requestBody": {
+                    "description": "Enter phone number or email in identity field and password for logging in",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/LoginDefinition"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "IntegerParam": {
+            "type": "number"
+        },
+        "StringParam": {
+            "type": "string"
+        },
+        "Vehicle": {
+            "type": "object",
+            "properties": {
+                "year": {
+                    "type": "string"
+                },
+                "make": {
+                    "type": "string"
+                },
+                "model": {
+                    "type": "string"
+                },
+                "engineTrim": {
+                    "type": "string"
+                },
+                "engineType": {
+                    "type": "string"
+                },
+                "engineSize": {
+                    "type": "string"
+                },
+                "fuelFilter": {
+                    "type": "string"
+                },
+                "airFilter": {
+                    "type": "string"
+                },
+                "cabinAirFilter": {
+                    "type": "string"
+                },
+                "transmissionFilter": {
+                    "type": "string"
+                },
+                "oilFilter": {
+                    "type": "string"
+                },
+                "oilType": {
+                    "type": "string"
+                },
+                "oilCapacity": {
+                    "type": "string"
+                },
+                "coolantCapacity": {
+                    "type": "string"
+                },
+                "createdBy": {
+                    "type": "number"
+                },
+                "createdAt": {
+                    "type": "date"
+                },
+                "updatedBy": {
+                    "type": "number"
+                },
+                "updatedAt": {
+                    "type": "date"
+                }
+            }
+        },
+        "Vehicles": {
+            "type": "object",
+            "properties": {
+                "vehicles": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Vehicle"
+                    }
+                }
+            }
+        },
+        "Service": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "baseServiceCharge": {
+                    "type": "number"
+                },
+                "fee": {
+                    "type": "number"
+                },
+                "numberOfLabors": {
+                    "type": "number"
+                },
+                "estimatedServiceTime": {
+                    "type": "string"
+                },
+                "createdBy": {
+                    "type": "number"
+                },
+                "createdAt": {
+                    "type": "date"
+                },
+                "updatedBy": {
+                    "type": "number"
+                },
+                "updatedAt": {
+                    "type": "date"
+                }
+            }
+        },
+        "Services": {
+            "type": "object",
+            "properties": {
+                "vehicles": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/Service"
+                    }
+                }
+            }
+        },
+        "User": {
+            "type": "object",
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "countryCode": {
+                    "type": "number"
+                },
+                "phoneNumber": {
+                    "type": "number"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "dateOfBirth": {
+                    "type": "date"
+                }
+            }
+        },
+        "generalResponse": {
+            "type": "object",
+            "properties": {
+                "success": {
+                    "type": "boolean"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "LoginDefinition": {
+            "type": "object",
+            "properties": {
+                "identity": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,29 @@
+<mat-card-title>
+  Login
+  <div class="divider"></div>
+</mat-card-title>
+
+<shared-mat-card-loader *ngIf="!loaded"></shared-mat-card-loader>
+
+<mat-card-content>
+  <form [formGroup]="fg" (ngSubmit)="login(fg.value)" fxLayout="column">
+    <mat-form-field floatLabel="never" shouldLabelFloat="false">
+      <input matInput class="input" [placeholder]="attributesLabels.email" formControlName="email" required>
+      <mat-error *ngIf="fg.get('email').hasError('required')">Email is required</mat-error>
+      <mat-error *ngIf="fg.get('email').hasError('email') && !fg.get('email').hasError('required') ">
+        Invalid email
+      </mat-error>
+    </mat-form-field>
+    <!-- <mat-form-field class="password" floatLabel="never">
+      <input matInput class="input" [placeholder]="attributesLabels.password" type="password" formControlName="password"
+        required>
+      <mat-error *ngIf="fg.get('password').hasError('required')">Password is required</mat-error>
+    </mat-form-field> -->
+    <div fxLayout="row">
+      <button mat-raised-button color="primary" [disabled]="fg.invalid" type="submit">Login</button>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+      <p>Don't have an account? </p> <a [routerLink]="['/auth/signup']">Sign Up</a>
+    </div>
+  </form>
+</mat-card-content>

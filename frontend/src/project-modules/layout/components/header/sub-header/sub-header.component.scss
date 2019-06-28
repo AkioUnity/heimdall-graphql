@@ -1,0 +1,18 @@
+.sub-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #efefef;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0px;
+}
+
+.page-title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.page-title > span {
+  font-size: 20px;
+}

@@ -1,0 +1,49 @@
+<shared-mat-card-loader *ngIf="!loaded"></shared-mat-card-loader>
+<div class="container">
+  <h3 mat-dialog-title>{{pageTitle}}</h3>
+
+  <form [formGroup]="fg" class="mat-dialog-content" (ngSubmit)="submit(fg.value)">
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput class="form-control" [placeholder]="attributeLabels.name" formControlName="name" required>
+        <mat-error *ngIf="fg.get('name').hasError('required')">Name is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput class="form-control" [placeholder]="attributeLabels.baseServiceCharge" formControlName="baseServiceCharge" required>
+        <mat-error *ngIf="fg.get('baseServiceCharge').hasError('required')">Base Service Charge is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput class="form-control" [placeholder]="attributeLabels.fee" formControlName="fee" required>
+        <mat-error *ngIf="fg.get('fee').hasError('required')">Fee is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput class="form-control" [placeholder]="attributeLabels.numberOfLabors" formControlName="numberOfLabors"
+          required>
+        <mat-error *ngIf="fg.get('numberOfLabors').hasError('required')">Number Of Labors is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput class="form-control" [placeholder]="attributeLabels.estimatedServiceTime" formControlName="estimatedServiceTime"
+          required>
+        <mat-error *ngIf="fg.get('estimatedServiceTime').hasError('required')">Estimated Service Time is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-button type="submit" [disabled]="fg.invalid">Save</button>
+      <button mat-button type="button" (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </div>
+  </form>
+</div>

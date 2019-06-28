@@ -1,0 +1,120 @@
+<shared-mat-card-loader *ngIf="!loaded"></shared-mat-card-loader>
+<div class="container">
+  <h3 mat-dialog-title>{{pageTitle}}</h3>
+
+  <form [formGroup]="fg" class="mat-dialog-content" (ngSubmit)="submit(fg.value)">
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput class="form-control" [placeholder]="attributeLabels.year" formControlName="year" required>
+        <mat-error *ngIf="fg.get('year').hasError('required')">Year is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput class="form-control" [placeholder]="attributeLabels.make" formControlName="make" required>
+        <mat-error *ngIf="fg.get('make').hasError('required')">Make is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput class="form-control" [placeholder]="attributeLabels.model" formControlName="model" required>
+        <mat-error *ngIf="fg.get('model').hasError('required')">Model is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput class="form-control" [placeholder]="attributeLabels.engineTrim" formControlName="engineTrim"
+          required>
+        <mat-error *ngIf="fg.get('engineTrim').hasError('required')">Engine Trim is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput class="form-control" [placeholder]="attributeLabels.engineType" formControlName="engineType"
+          required>
+        <mat-error *ngIf="fg.get('engineType').hasError('required')">Engine Type is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput class="form-control" [placeholder]="attributeLabels.engineSize" formControlName="engineSize"
+          required>
+        <mat-error *ngIf="fg.get('engineSize').hasError('required')">Engine Size is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput class="form-control" [placeholder]="attributeLabels.fuelFilter" formControlName="fuelFilter"
+          required>
+        <mat-error *ngIf="fg.get('fuelFilter').hasError('required')">Fuel Filter is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput class="form-control" [placeholder]="attributeLabels.airFilter" formControlName="airFilter"
+          required>
+        <mat-error *ngIf="fg.get('airFilter').hasError('required')">Air Filter is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput class="form-control" [placeholder]="attributeLabels.cabinAirFilter"
+          formControlName="cabinAirFilter" required>
+        <mat-error *ngIf="fg.get('cabinAirFilter').hasError('required')">Cabin Air Filter is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput class="form-control" [placeholder]="attributeLabels.transmissionFilter"
+          formControlName="transmissionFilter" required>
+        <mat-error *ngIf="fg.get('transmissionFilter').hasError('required')">Transmission Filter is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput class="form-control" [placeholder]="attributeLabels.oilFilter" formControlName="oilFilter"
+          required>
+        <mat-error *ngIf="fg.get('oilFilter').hasError('required')">Oil Filter is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput class="form-control" [placeholder]="attributeLabels.oilType" formControlName="oilType" required>
+        <mat-error *ngIf="fg.get('oilType').hasError('required')">Oil Type is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput class="form-control" [placeholder]="attributeLabels.oilCapacity" formControlName="oilCapacity"
+          required>
+        <mat-error *ngIf="fg.get('oilCapacity').hasError('required')">Oil Capacity is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput class="form-control" [placeholder]="attributeLabels.coolantCapacity"
+          formControlName="coolantCapacity" required>
+        <mat-error *ngIf="fg.get('coolantCapacity').hasError('required')">Coolant Capacity is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-button type="submit" [disabled]="fg.invalid">Save</button>
+      <button mat-button type="button" (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,19 @@
+{
+  "name": "heimdall-api-migration",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "m-up": "sequelize db:migrate",
+    "m-undo": "npx sequelize db:migrate:undo",
+    "m-undo-all": "npx sequelize db:undo:all",
+    "s-up": "npx sequelize db:seed:all",
+    "s-undo": "npx sequelize db:seed:undo",
+    "s-undo-all": "npx sequelize db:seed:undo:all",
+    "up": "npm run m-up && npm run s-up"
+  },
+  "author": "Arif Sami",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {}
+}

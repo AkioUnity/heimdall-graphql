@@ -1,0 +1,25 @@
+{
+  "name": "swagger-api-doc",
+  "version": "0.0.1",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "tsc && node dist/server.js"
+  },
+  "author": "Arif Sami | whitezer0 | arifsami03@gmail.com",
+  "private": true,
+  "dependencies": {
+    "@types/express": "^4.16.1",
+    "@types/node": "7.0.22",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "swagger-ui-express": "^4.0.2",
+    "uuid": "^3.3.2",
+    "typescript": "3.3.3333"
+  },
+  "devDependencies": {
+    "concurrently": "^2.2.0",
+    "nodemon": "^1.18.10"
+  }
+}

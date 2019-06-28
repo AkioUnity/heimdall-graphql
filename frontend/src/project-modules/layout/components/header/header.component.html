@@ -1,0 +1,16 @@
+<div class="header">
+    <mat-toolbar color="primary">
+        <div class="brand-banner">
+            <div class="title">
+                <h3>{{appTitle}}</h3>
+            </div>
+        </div>
+        <div class="user-navigation">
+            <!-- <button id="user-name" mat-button [matMenuTriggerFor]="menu">{{ username }}</button> -->
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="logout()">Logout</button>
+            </mat-menu>
+            <img [matMenuTriggerFor]="menu" class="profile-photo" src="assets/images/user.png">
+        </div>
+    </mat-toolbar>
+</div>

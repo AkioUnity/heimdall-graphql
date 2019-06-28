@@ -1,0 +1,127 @@
+<shared-mat-card-loader *ngIf="!loaded"></shared-mat-card-loader>
+<div class="mat-elevation-z8">
+
+  <div fxLayout="row" class="form-filter">
+    <mat-form-field fxFlex floatPlaceholder="never">
+      <input matInput #filter placeholder="Filter Vehicles">
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{attributeLabels.id}}</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="year">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{attributeLabels.year}}</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.year}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="make">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{attributeLabels.make}}</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.make}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="model">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{attributeLabels.model}}</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.model}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="engineTrim">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{attributeLabels.engineTrim}}</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.engineTrim}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="engineType">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{attributeLabels.engineType}}</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.engineType}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="engineSize">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{attributeLabels.engineSize}}</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.engineSize}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="fuelFilter">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{attributeLabels.fuelFilter}}</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.fuelFilter}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="airFilter">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{attributeLabels.airFilter}}</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.airFilter}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="cabinAirFilter">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{attributeLabels.cabinAirFilter}}</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.cabinAirFilter}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="transmissionFilter">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{attributeLabels.transmissionFilter}}</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.transmissionFilter}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="oilFilter">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{attributeLabels.oilFilter}}</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.oilFilter}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="oilType">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{attributeLabels.oilType}}</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.oilType}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="oilCapacity">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{attributeLabels.oilCapacity}}</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.oilCapacity}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="coolantCapacity">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{attributeLabels.coolantCapacity}}</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.coolantCapacity}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="createdAt">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{attributeLabels.createdAt}}</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.createdAt | date: 'shortDate'}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="updatedAt">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{attributeLabels.updatedAt}}</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.updatedAt | date: 'shortDate'}}</mat-cell>
+    </ng-container>
+
+    <!-- actions -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="primary" (click)="create()">
+          <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+        </button>
+      </mat-header-cell>
+
+      <mat-cell *matCellDef="let row; let i=index;">
+        <button mat-icon-button color="primary" (click)="edit(row.id, row)">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+
+        <button mat-icon-button color="primary" (click)="delete(row.id, row)">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+
+  <div *ngIf="loaded && dataSource.filteredData.length === 0" class="no-results" fxLayout="row"
+    fxLayoutAlign="center center" fxLayoutGap="30px">
+    No results
+  </div>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"> </mat-paginator>
+</div>

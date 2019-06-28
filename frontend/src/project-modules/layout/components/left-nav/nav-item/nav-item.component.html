@@ -1,0 +1,34 @@
+<ng-container *ngIf="item.children.length > 0; then collapseListItem; else linkListItem"></ng-container>
+
+<!-- If current itratee has children, then dispaly native list item with collapse/expand functionality -->
+<ng-template #collapseListItem>
+    <mat-list-item class="menu-list-item" [ngStyle]="{'padding-left': (depth * 12) + 'px'}"
+        (click)="onItemSelected(item)"
+        [ngClass]="{'active': item.link ? router.isActive(item.link, true): false, 'expanded': expanded}">
+        <mat-icon color="primary" class="menu-list-icon">{{item.icon}}</mat-icon>
+        {{item.title}}
+        <span fxFlex>
+            <span fxFlex></span>
+            <mat-icon [@indicatorRotate]="expanded ? 'expanded': 'collapsed'">
+                expand_more
+            </mat-icon>
+        </span>
+    </mat-list-item>
+    <mat-divider matInset></mat-divider>
+</ng-template>
+
+<!-- If current itratee has no children, then dispaly a linklist item to navigate -->
+<ng-template #linkListItem>
+    <a mat-list-item class="menu-list-item" [ngStyle]="{'padding-left': (depth * 12) + 'px'}" [routerLink]="[item.link]"
+        [ngClass]="{'active': item.link ? router.isActive(item.link, true): false, 'expanded': expanded}">
+        <mat-icon color="primary" class="menu-list-icon">{{item.icon}}</mat-icon>
+        {{item.title}}
+    </a>
+    <mat-divider matInset></mat-divider>
+</ng-template>
+
+<!-- If user clicks a collapseListItem, then load its children -->
+<div *ngIf="expanded">
+    <layout-nav-item *ngFor="let child of item.children" [item]="child" [depth]="depth+1">
+    </layout-nav-item>
+</div>

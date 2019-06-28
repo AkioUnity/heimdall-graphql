@@ -1,0 +1,95 @@
+<shared-mat-card-loader *ngIf="!loaded"></shared-mat-card-loader>
+<div class="mat-elevation-z8">
+
+  <div fxLayout="row" class="form-filter">
+    <mat-form-field fxFlex floatPlaceholder="never">
+      <input matInput #filter placeholder="Filter Services">
+    </mat-form-field>
+  </div>
+
+  <mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell fxFlex="5" fxLayout="row" *matHeaderCellDef mat-sort-header>{{attributeLabels.id}}
+      </mat-header-cell>
+      <mat-cell fxFlex="5" *matCellDef="let row">{{row.id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell fxFlex="10" *matHeaderCellDef mat-sort-header>{{attributeLabels.name}}</mat-header-cell>
+      <mat-cell fxFlex="10" *matCellDef="let row">{{row.name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="baseServiceCharge">
+      <mat-header-cell fxFlex="15" *matHeaderCellDef mat-sort-header>{{attributeLabels.baseServiceCharge}}
+      </mat-header-cell>
+      <mat-cell fxFlex="15" *matCellDef="let row">${{row.baseServiceCharge}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="fee">
+      <mat-header-cell fxFlex="5" *matHeaderCellDef mat-sort-header>{{attributeLabels.fee}}</mat-header-cell>
+      <mat-cell fxFlex="5" *matCellDef="let row">${{row.fee}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="numberOfLabors">
+      <mat-header-cell fxFlex="15" *matHeaderCellDef mat-sort-header>{{attributeLabels.numberOfLabors}}
+      </mat-header-cell>
+      <mat-cell fxFlex="15" *matCellDef="let row">{{row.numberOfLabors}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="estimatedServiceTime">
+      <mat-header-cell fxFlex="15" *matHeaderCellDef mat-sort-header>{{attributeLabels.estimatedServiceTime}}
+      </mat-header-cell>
+      <mat-cell fxFlex="15" *matCellDef="let row">{{row.estimatedServiceTime}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="createdAt">
+      <mat-header-cell fxFlex="10" *matHeaderCellDef mat-sort-header>{{attributeLabels.createdAt}}</mat-header-cell>
+      <mat-cell fxFlex="10" *matCellDef="let row">{{row.createdAt | date: 'shortDate'}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="updatedAt">
+      <mat-header-cell fxFlex="10" *matHeaderCellDef mat-sort-header>{{attributeLabels.updatedAt}}</mat-header-cell>
+      <mat-cell fxFlex="10" *matCellDef="let row">{{row.updatedAt | date: 'shortDate'}}</mat-cell>
+    </ng-container>
+
+    <!-- actions -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell fxFlex="15" fxLayoutAlign="end center" *matHeaderCellDef>
+        <button mat-icon-button color="primary" (click)="create()">
+          <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+        </button>
+      </mat-header-cell>
+
+      <mat-cell fxFlex="15" fxLayoutAlign="end center" *matCellDef="let row;">
+        <button mat-icon-button color="primary" (click)="edit(row.id, row)">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+
+        <button mat-icon-button color="primary" (click)="delete(row.id, row)">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <div *ngIf="loaded && dataSource.filteredData.length === 0" class="no-results" fxLayout="row"
+    fxLayoutAlign="center center" fxLayoutGap="30px">
+    No results
+  </div>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"> </mat-paginator>
+
+  <!-- From old implementation section start -->
+  <!-- <div class="no-results" [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+    No results
+  </div>
+
+  <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator> -->
+  <!-- From old implementation section end -->
+</div>
